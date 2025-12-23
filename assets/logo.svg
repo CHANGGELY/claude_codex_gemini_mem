@@ -1,0 +1,46 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4285F4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#9C27B0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00C853;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background Circle (Glassmorphismish) -->
+  <circle cx="100" cy="100" r="90" fill="#f0f0f0" fill-opacity="0.1" stroke="url(#grad1)" stroke-width="2" />
+  
+  <!-- Brain / Circuit Nodes -->
+  <g filter="url(#glow)">
+    <!-- Central Node -->
+    <circle cx="100" cy="100" r="15" fill="url(#grad1)" />
+    
+    <!-- Surrounding Nodes -->
+    <circle cx="100" cy="50" r="8" fill="#4285F4" />
+    <circle cx="150" cy="100" r="8" fill="#9C27B0" />
+    <circle cx="100" cy="150" r="8" fill="#00C853" />
+    <circle cx="50" cy="100" r="8" fill="#FF5722" />
+    
+    <!-- Connections -->
+    <line x1="100" y1="85" x2="100" y2="58" stroke="#333" stroke-width="2" stroke-linecap="round" />
+    <line x1="115" y1="100" x2="142" y2="100" stroke="#333" stroke-width="2" stroke-linecap="round" />
+    <line x1="100" y1="115" x2="100" y2="142" stroke="#333" stroke-width="2" stroke-linecap="round" />
+    <line x1="85" y1="100" x2="58" y2="100" stroke="#333" stroke-width="2" stroke-linecap="round" />
+    
+    <!-- Diagonal Connections (Neural Network style) -->
+    <line x1="110" y1="90" x2="140" y2="60" stroke="#ccc" stroke-width="1" />
+    <line x1="90" y1="90" x2="60" y2="60" stroke="#ccc" stroke-width="1" />
+    <line x1="110" y1="110" x2="140" y2="140" stroke="#ccc" stroke-width="1" />
+    <line x1="90" y1="110" x2="60" y2="140" stroke="#ccc" stroke-width="1" />
+  </g>
+  
+  <!-- Terminal Prompt Overlay -->
+  <text x="100" y="105" font-family="monospace" font-size="20" fill="white" text-anchor="middle" dominant-baseline="middle">&gt;_</text>
+</svg>
