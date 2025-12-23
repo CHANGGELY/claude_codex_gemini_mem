@@ -17,15 +17,15 @@
 ## 阶段 2: 核心服务解耦 (Core Decoupling)
 将核心业务逻辑（数据库、搜索、摘要）从 Claude 特定代码中分离。
 
-- [ ] 任务: 抽象 Memory Service 接口
-    - [ ] 子任务: 定义通用的 `IMemoryService` 接口（包含 `createSession`, `addObservation`, `search` 等方法）。
-    - [ ] 子任务: 创建 `CoreMemoryService` 类，迁移原有的业务逻辑，移除对 Claude 类型的直接依赖。
+- [x] 任务: 抽象 Memory Service 接口
+    - [x] 子任务: 定义通用的 `IMemoryService` 接口（包含 `createSession`, `addObservation`, `search` 等方法）。
+    - [x] 子任务: 创建 `CoreMemoryService` 类，迁移原有的业务逻辑，移除对 Claude 类型的直接依赖。
 
-- [ ] 任务: 重构 Worker API
-    - [ ] 子任务: 确保 HTTP 端点 (`/api/*`) 接受通用的 JSON 数据结构，而非仅接受 Claude Transcript 对象。
-    - [ ] 子任务: 编写测试用例，验证通过纯 HTTP 请求能否成功存储和检索记忆。
+- [x] 任务: 重构 Worker API
+    - [x] 子任务: 确保 HTTP 端点 (`/api/*`) 接受通用的 JSON 数据结构，而非仅接受 Claude Transcript 对象。
+    - [x] 子任务: 编写测试用例，验证通过纯 HTTP 请求能否成功存储和检索记忆。
 
-- [ ] 任务: Conductor - 用户手册验证 '阶段 2: 核心服务解耦' (按此协议执行)
+- [x] 任务: Conductor - 用户手册验证 '阶段 2: 核心服务解耦' (按此协议执行)
 
 ## 阶段 3: Gemini 适配器开发 (Gemini Adapter)
 实现 Gemini 侧的集成逻辑。

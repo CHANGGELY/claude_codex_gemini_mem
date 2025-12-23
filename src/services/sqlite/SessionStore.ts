@@ -41,6 +41,30 @@ export class SessionStore {
     this.createUserPromptsTable();
     this.ensureDiscoveryTokensColumn();
     this.createPendingMessagesTable();
+    this.ensurePlatformColumn();
+  }
+
+  /**
+   * Ensure platform column exists in sdk_sessions (migration 17)
+   */
+  private ensurePlatformColumn(): void {
+    try {
+      const applied = this.db.prepare('SELECT version FROM schema_versions WHERE version = ?').get(17) as SchemaVersion | undefined;
+      if (applied) return;
+
+      const sessionsInfo = this.db.query('PRAGMA table_info(sdk_sessions)').all() as TableColumnInfo[];
+      const hasPlatform = sessionsInfo.some(col => col.name === 'platform');
+
+      if (!hasPlatform) {
+        this.db.run("ALTER TABLE sdk_sessions ADD COLUMN platform TEXT DEFAULT 'claude'");
+        console.log('[SessionStore] Added platform column to sdk_sessions table');
+      }
+
+      this.db.prepare('INSERT OR IGNORE INTO schema_versions (version, applied_at) VALUES (?, ?)').run(17, new Date().toISOString());
+    } catch (error: any) {
+      console.error('[SessionStore] Platform column migration error:', error.message);
+      throw error;
+    }
   }
 
   /**
@@ -1139,7 +1163,7 @@ export class SessionStore {
    * This is KISS in action: Trust the database UNIQUE constraint and
    * INSERT OR IGNORE to handle both creation and lookup elegantly.
    */
-  createSDKSession(claudeSessionId: string, project: string, userPrompt: string): number {
+  createSDKSession(claudeSessionId: string, project: string, userPrompt: string, platform: string = 'claude'): number {
     const now = new Date();
     const nowEpoch = now.getTime();
 
@@ -1148,23 +1172,21 @@ export class SessionStore {
     // Subsequent calls (prompt #2+): Ignored, returns existing ID
     const stmt = this.db.prepare(`
       INSERT OR IGNORE INTO sdk_sessions
-      (claude_session_id, sdk_session_id, project, user_prompt, started_at, started_at_epoch, status)
-      VALUES (?, ?, ?, ?, ?, ?, 'active')
+      (claude_session_id, sdk_session_id, project, user_prompt, platform, started_at, started_at_epoch, status)
+      VALUES (?, ?, ?, ?, ?, ?, ?, 'active')
     `);
 
-    const result = stmt.run(claudeSessionId, claudeSessionId, project, userPrompt, now.toISOString(), nowEpoch);
+    const result = stmt.run(claudeSessionId, claudeSessionId, project, userPrompt, platform, now.toISOString(), nowEpoch);
 
     // If lastInsertRowid is 0, insert was ignored (session exists), so fetch existing ID
     if (result.lastInsertRowid === 0 || result.changes === 0) {
-      // Session exists - UPDATE project and user_prompt if we have non-empty values
-      // This fixes the bug where SAVE hook creates session with empty project,
-      // then NEW hook can't update it because INSERT OR IGNORE skips the insert
+      // Session exists - UPDATE project, user_prompt, and platform if we have non-empty values
       if (project && project.trim() !== '') {
         this.db.prepare(`
           UPDATE sdk_sessions
-          SET project = ?, user_prompt = ?
+          SET project = ?, user_prompt = ?, platform = ?
           WHERE claude_session_id = ?
-        `).run(project, userPrompt, claudeSessionId);
+        `).run(project, userPrompt, platform, claudeSessionId);
       }
 
       const selectStmt = this.db.prepare(`

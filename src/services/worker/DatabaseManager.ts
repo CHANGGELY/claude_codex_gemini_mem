@@ -11,6 +11,7 @@
 import { SessionStore } from '../sqlite/SessionStore.js';
 import { SessionSearch } from '../sqlite/SessionSearch.js';
 import { ChromaSync } from '../sync/ChromaSync.js';
+import { MemoryService } from '../domain/MemoryService.js';
 import { logger } from '../../utils/logger.js';
 import type { DBSession } from '../worker-types.js';
 
@@ -18,6 +19,7 @@ export class DatabaseManager {
   private sessionStore: SessionStore | null = null;
   private sessionSearch: SessionSearch | null = null;
   private chromaSync: ChromaSync | null = null;
+  private memoryService: MemoryService | null = null;
 
   /**
    * Initialize database connection (once, stays open)
@@ -26,6 +28,9 @@ export class DatabaseManager {
     // Open database connection (ONCE)
     this.sessionStore = new SessionStore();
     this.sessionSearch = new SessionSearch();
+
+    // Initialize MemoryService
+    this.memoryService = new MemoryService(this.sessionStore);
 
     // Initialize ChromaSync
     this.chromaSync = new ChromaSync('claude-mem');
@@ -55,6 +60,16 @@ export class DatabaseManager {
       this.sessionSearch = null;
     }
     logger.info('DB', 'Database closed');
+  }
+
+  /**
+   * Get MemoryService instance (throws if not initialized)
+   */
+  getMemoryService(): MemoryService {
+    if (!this.memoryService) {
+      throw new Error('Database not initialized');
+    }
+    return this.memoryService;
   }
 
   /**
