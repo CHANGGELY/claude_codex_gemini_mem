@@ -91,8 +91,23 @@
 </p>
 
 <p align="center">
-  Claude-Mem seamlessly preserves context across sessions by automatically capturing tool usage observations, generating semantic summaries, and making them available to future sessions. This enables Claude to maintain continuity of knowledge about projects even after sessions end or reconnect.
+  Claude-Mem seamlessly preserves context across sessions by automatically capturing tool usage observations, generating semantic summaries, and making them available to future sessions. This enables Claude and Gemini to maintain continuity of knowledge about projects even after sessions end or reconnect.
 </p>
+
+---
+
+## Gemini CLI Quick Start
+
+1. **Link Extension**:
+   ```bash
+   gemini extensions link .
+   ```
+
+2. **Initialize Session**:
+   ```bash
+   # Make sure worker is running (bun plugin/scripts/worker-service.cjs)
+   npx tsx src/adapters/gemini/hook.ts
+   ```
 
 ---
 

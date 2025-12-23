@@ -4,5 +4,5 @@
 
 ---
 
-## [ ] Track: 将 Claude-Mem 扩展为 Gemini CLI 插件 (Gemini Mem)
+## [x] Track: 将 Claude-Mem 扩展为 Gemini CLI 插件 (Gemini Mem)
 *链接: [./conductor/tracks/gemini_mem_extension_20251223/](./conductor/tracks/gemini_mem_extension_20251223/)*
