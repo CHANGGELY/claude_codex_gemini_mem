@@ -30,13 +30,13 @@
 ## 阶段 3: Gemini 适配器开发 (Gemini Adapter)
 实现 Gemini 侧的集成逻辑。
 
-- [ ] 任务: 实现 Gemini 会话管理器
-    - [ ] 子任务: 编写脚本，用于在 Gemini 启动时检测或生成 `session_id`。
-    - [ ] 子任务: 实现与 Worker Service 的握手（Session Start）。
+- [x] 任务: 实现 Gemini 会话管理器
+    - [x] 子任务: 编写脚本，用于在 Gemini 启动时检测或生成 `session_id`。
+    - [x] 子任务: 实现与 Worker Service 的握手（Session Start）。
 
-- [ ] 任务: 实现上下文注入机制
-    - [ ] 子任务: 开发 `context-injector`，在用户 Prompt 发送前，调用 Worker 的 Search API。
-    - [ ] 子任务: 将检索到的 Context 格式化为 Gemini 易读的格式（System Prompt 或 User Message 前缀）。
+- [x] 任务: 实现上下文注入机制
+    - [x] 子任务: 开发 `context-injector`，在用户 Prompt 发送前，调用 Worker 的 Search API。
+    - [x] 子任务: 将检索到的 Context 格式化为 Gemini 易读的格式（System Prompt 或 User Message 前缀）。
 
 - [ ] 任务: 实现观察捕获 (Observation Capture)
     - [ ] 子任务: 拦截 Gemini 的工具执行结果和对话历史。
