@@ -545,7 +545,17 @@ export class ChromaSync {
           throw new Error('Unexpected response type from chroma_get_documents');
         }
 
-        const parsed = JSON.parse(data.text);
+        let parsed: any;
+        try {
+          parsed = JSON.parse(data.text);
+        } catch (parseError) {
+          logger.error('CHROMA_SYNC', 'Failed to parse documents response from Chroma', { 
+            project: this.project,
+            text: data.text.substring(0, 200) 
+          }, parseError as Error);
+          break; // Stop fetching if we get invalid responses
+        }
+        
         const metadatas = parsed.metadatas || [];
 
         if (metadatas.length === 0) {

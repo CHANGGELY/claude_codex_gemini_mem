@@ -111,6 +111,27 @@
 
 ---
 
+## Codex CLI Quick Start
+
+1. **Add MCP Server (mem-search)**:
+   ```bash
+   # run this once (from this repo root)
+   codex mcp add mem-search -- npx tsx src/servers/mcp-server.ts
+   ```
+
+2. **Run Codex with Memory + Auto-Import Session**:
+   ```bash
+   # Make sure worker is running (bun plugin/scripts/worker-service.cjs)
+   npx tsx src/adapters/codex/run.ts -- --model "gpt-5.2"
+   ```
+
+3. **(Optional) Import the latest Codex session manually**:
+   ```bash
+   npx tsx src/adapters/codex/import-session.ts --last
+   ```
+
+---
+
 ## Quick Start
 
 Start a new Claude Code session in the terminal and enter the following commands:

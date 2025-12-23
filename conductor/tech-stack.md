@@ -2,12 +2,13 @@
 
 ## 核心运行时与语言
 - **TypeScript**: 作为主要的编程语言，确保代码的类型安全和可维护性。
-- **Node.js / Bun**: 后端运行时环境。项目利用了 Bun 的高性能和内置的进程管理功能。
+- **Node.js / Bun**: 后端运行时环境。为了支持多平台（Claude/Gemini），核心服务已完成平台解耦。项目利用了 Bun 的高性能和内置的进程管理功能。
 
 ## 后端框架与 API
 - **Express**: 用于构建 Web 查看器的后端 API，监听端口 37777。
 - **Claude Agent SDK**: 用于集成 Claude Code 的核心插件功能和生命周期钩子。
 - **Model Context Protocol (MCP) SDK**: 用于实现 MCP 服务器，支持跨工具的上下文通信。
+- **Codex CLI Integration**: 实现了对 Codex CLI 的原生支持，包括通过 `.jsonl` 会话日志进行自动记忆导入和上下文注入。
 
 ## 前端技术 (Web Viewer)
 - **React**: 用于构建 Web 查看器的用户界面。

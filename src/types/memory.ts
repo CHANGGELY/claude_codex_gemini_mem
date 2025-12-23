@@ -2,7 +2,7 @@
  * 通用的记忆服务类型定义
  */
 
-export type PlatformType = 'claude' | 'gemini' | 'generic';
+export type PlatformType = 'claude' | 'gemini' | 'codex' | 'generic';
 
 export interface MemorySession {
   id: string;
