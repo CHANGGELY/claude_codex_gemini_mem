@@ -3,10 +3,10 @@
 ## 阶段 1: 分析与环境准备 (Analysis & Setup)
 此阶段重点是理解现有代码库对 Claude SDK 的依赖程度，并建立 Gemini 的开发调试环境。
 
-- [ ] 任务: 分析 `worker-service` 对 Claude SDK 的依赖
-    - [ ] 子任务: 扫描 `src/` 目录，列出所有引入 `@anthropic-ai/claude-agent-sdk` 的文件。
-    - [ ] 子任务: 编写分析报告，确定需要解耦的模块。
-    - [ ] 子任务: 提交分析报告到 `docs/architecture/gemini-migration-analysis.md`。
+- [x] 任务: 分析 `worker-service` 对 Claude SDK 的依赖
+    - [x] 子任务: 扫描 `src/` 目录，列出所有引入 `@anthropic-ai/claude-agent-sdk` 的文件。
+    - [x] 子任务: 编写分析报告，确定需要解耦的模块。
+    - [x] 子任务: 提交分析报告到 `docs/architecture/gemini-migration-analysis.md`。
 
 - [ ] 任务: 建立 Gemini 调试环境
     - [ ] 子任务: 确认 Gemini CLI 的扩展/插件机制或 Hook 点。
