@@ -8,9 +8,9 @@
     - [x] 子任务: 编写分析报告，确定需要解耦的模块。
     - [x] 子任务: 提交分析报告到 `docs/architecture/gemini-migration-analysis.md`。
 
-- [ ] 任务: 建立 Gemini 调试环境
-    - [ ] 子任务: 确认 Gemini CLI 的扩展/插件机制或 Hook 点。
-    - [ ] 子任务: 创建一个简单的 "Hello World" Gemini 扩展脚本，验证拦截输入输出的能力。
+- [x] 任务: 建立 Gemini 调试环境
+    - [x] 子任务: 确认 Gemini CLI 的扩展/插件机制或 Hook 点。
+    - [x] 子任务: 创建一个简单的 "Hello World" Gemini 扩展脚本，验证拦截输入输出的能力。
 
 - [ ] 任务: Conductor - 用户手册验证 '阶段 1: 分析与环境准备' (按此协议执行)
 
