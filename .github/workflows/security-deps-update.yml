@@ -26,8 +26,10 @@ jobs:
             let v;
             try { v = JSON.parse(execSync(`npm view ${JSON.stringify(p)} version --json`).toString().trim()); }
             catch (e) { console.log("skip", p); continue; }
-            pj.overrides[p] = "^" + v;
-            if (pj.pnpm) { pj.pnpm = pj.pnpm || {}; pj.pnpm.overrides = pj.pnpm.overrides || {}; pj.pnpm.overrides[p] = "^" + v; }
+            const range = "^" + v;
+            if (pj.dependencies && pj.dependencies[p] !== undefined) { pj.dependencies[p] = range; }
+            else if (pj.devDependencies && pj.devDependencies[p] !== undefined) { pj.devDependencies[p] = range; }
+            else { pj.overrides[p] = range; }
           }
           fs.writeFileSync("package.json", JSON.stringify(pj, null, 2) + "\n");
           console.log("overrides written:", Object.keys(pj.overrides).join(", "));
