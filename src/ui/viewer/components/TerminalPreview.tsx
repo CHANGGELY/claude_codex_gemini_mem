@@ -26,7 +26,10 @@ export function TerminalPreview({ content, isLoading = false, className = '' }: 
       scrollTopRef.current = preRef.current.scrollTop;
     }
     if (!content) return '';
-    return ansiConverter.toHtml(content);
+    // 安全加固：终端输出可能携带任意文本（含 HTML），先转义再交给 ANSI 转换器，防止 XSS（Sourcery High 80）
+    return ansiConverter.toHtml(
+      content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'),
+    );
   }, [content]);
 
   // Restore scroll position after render
